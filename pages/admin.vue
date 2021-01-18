@@ -164,9 +164,6 @@ import Vue from 'vue'
 import { mdiDelete, mdiStar, mdiStarOutline } from '@mdi/js'
 
 export default Vue.extend({
-  created() {
-    if (process.client && !this.$auth.loggedIn) this.$auth.loginWith('discord')
-  },
   data() {
     return {
       messages: [],
@@ -180,6 +177,9 @@ export default Vue.extend({
         delete: mdiDelete,
       },
     }
+  },
+  created() {
+    if (process.client && !this.$auth.loggedIn) this.$auth.loginWith('discord')
   },
   async mounted() {
     if (this.$auth.loggedIn && this.$auth.user.id !== process.env.OWNER_ID) {

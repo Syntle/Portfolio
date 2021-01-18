@@ -39,10 +39,10 @@
               text
               class="disable-pointer"
             >
-              <v-icon left v-if="technology.icon">
+              <v-icon v-if="technology.icon" left>
                 {{ technology.icon }}
               </v-icon>
-              <v-avatar size="18" v-if="!technology.icon && technology.svg_d">
+              <v-avatar v-if="!technology.icon && technology.svg_d" size="18">
                 <svg viewBox="0 0 24 24">
                   <path :class="technology.name" :d="technology.svg_d" />
                 </svg>
@@ -61,7 +61,12 @@
               My StackOverflow Stats
             </v-card-text>
             <v-card class="ma-2 mb-4 pl-4 text-center" elevation="3">
-              <v-btn class="disable-pointer" color="green lighten-1" x-large text>
+              <v-btn
+                class="disable-pointer"
+                color="green lighten-1"
+                x-large
+                text
+              >
                 {{ stackOverflowStats.reputation }} Rep
               </v-btn>
               <v-spacer />
@@ -167,8 +172,8 @@ import {
 
 export default Vue.extend({
   async asyncData({ $axios, env }) {
-    let {
-      items: { [0]: stackOverflowStats },
+    const {
+      items: { 0: stackOverflowStats },
     } = await $axios.$get(
       `${env.SE_API_BASE}/users/13176517?site=stackoverflow`
     )

@@ -32,7 +32,7 @@ export default Vue.extend({
 
     const {
       data: {
-        data: { sessionExists: sessionExists },
+        data: { sessionExists },
       },
     } = await $axios({
       method: 'post',
