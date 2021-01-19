@@ -127,23 +127,15 @@
             <v-card-title> You can find me on... </v-card-title>
             <v-row justify="center">
               <v-col v-for="social in socials" :key="social.site" cols="2">
-                <v-tooltip top>
-                  <template #activator="{ on, attrs }">
-                    <v-btn
-                      :color="social.colour"
-                      large
-                      v-bind="social.link.length ? undefined : attrs"
-                      v-on="social.link.length ? undefined : on"
-                      @click="handleSocialBtn(social.user, social.link)"
-                    >
-                      <v-icon left> {{ social.icon }} </v-icon>
-                      {{ social.user }}
-                    </v-btn>
-                  </template>
-                  <span>
-                    {{ copiedUsername ? 'Copied!' : 'Copy Username' }}
-                  </span>
-                </v-tooltip>
+                <v-btn
+                  :color="social.colour"
+                  large
+                  v-bind="size"
+                  @click="openInNewTab(social.link)"
+                >
+                  <v-icon v-bind="size" left> {{ social.icon }} </v-icon>
+                  {{ social.user }}
+                </v-btn>
               </v-col>
             </v-row>
           </v-card>
@@ -186,7 +178,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      copiedUsername: false,
       technologies: [
         {
           name: 'JavaScript',
@@ -263,7 +254,7 @@ export default Vue.extend({
           site: 'Discord',
           icon: mdiDiscord,
           user: 'Syntle#7136',
-          link: '',
+          link: 'https://discord.com/users/152428352358187008',
           colour: '#7289da',
         },
       ],
@@ -272,27 +263,9 @@ export default Vue.extend({
       },
     }
   },
-  watch: {
-    copiedUsername(newVal, oldVal) {
-      if (newVal) {
-        setTimeout(() => {
-          this.copiedUsername = false
-        }, 5000)
-      }
-    },
-  },
   methods: {
     openInNewTab(link: string) {
       window.open(link, '_blank')
-    },
-    async handleSocialBtn(username: string, link: string) {
-      if (!link.length) {
-        await navigator.clipboard.writeText(username)
-
-        this.copiedUsername = true
-      } else {
-        this.openInNewTab(link)
-      }
     },
   },
 })
