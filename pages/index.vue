@@ -5,9 +5,11 @@
         <v-col>
           <div class="text-h4 text-center">
             <vue-typer
-              :text="['Hello!', 'I\'m Syntle.']"
-              repeat="0"
+              id="typewriter"
+              :text="typerText"
+              :repeat="0"
               caret-animation="blink"
+              @typed-char="onTypedChar"
             />
           </div>
         </v-col>
@@ -179,6 +181,11 @@ export default Vue.extend({
   },
   data() {
     return {
+      typerText: [
+        'Hello!',
+        "I'm Syntle\n\nA passionate, quick learning, self-taught software engineer who strives to build robust and efficient applications.",
+      ],
+      countWord: 0,
       technologies: [
         {
           name: 'JavaScript',
@@ -274,6 +281,38 @@ export default Vue.extend({
     openInNewTab(link: string) {
       window.open(link, '_blank')
     },
+    onTypedChar(typedChar: string, typedCharIndex: number) {
+      if (typedCharIndex === 0) {
+        document.getElementById('typewriter')!.firstChild!.innerHTML = ''
+      }
+
+      const lessNodes = document.getElementById('typewriter')!.lastChild!
+        .childNodes
+
+      if (typedChar === ' ' || lessNodes.length === 1) {
+        const finalNodes = document.getElementById('typewriter')!.firstChild
+        const listNodes = finalNodes!.childNodes
+
+        const newNode = document.createElement('span')
+
+        let x = this.countWord
+        const countNodes = listNodes.length
+        while (x < countNodes) {
+          if (listNodes[this.countWord].innerHTML !== ' ')
+            newNode.insertAdjacentElement(
+              'beforeend',
+              listNodes[this.countWord]
+            )
+          else this.countWord++
+
+          x++
+        }
+        newNode.className = 'nowrap'
+        finalNodes!.insertAdjacentElement('beforeend', newNode)
+
+        this.countWord++
+      }
+    },
   },
 })
 </script>
@@ -302,5 +341,9 @@ export default Vue.extend({
 
 .MongoDB {
   fill: #13aa52;
+}
+
+span.nowrap {
+  white-space: nowrap;
 }
 </style>
