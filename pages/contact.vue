@@ -1,10 +1,21 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="6">
+      <v-col lg="6" xl="6">
         <v-card v-if="!formSubmitted" class="pa-5">
-          <div v-if="seekingStatus" class="d-flex justify-end mb-n11">
-            <v-btn class="disable-pointer" color="green" x-small>
+          <div
+            v-if="seekingStatus"
+            :class="
+              $vuetify.breakpoint.name === 'xs'
+                ? 'text-center'
+                : 'd-flex justify-end mb-n11'
+            "
+          >
+            <v-btn
+              class="disable-pointer"
+              color="green"
+              v-bind="seekingStatusSize"
+            >
               Seeking Employment
             </v-btn>
           </div>
@@ -25,6 +36,7 @@
             <v-btn
               color="green darken-2"
               :disabled="!validForm"
+              v-bind="componentSize"
               @click="submitForm()"
             >
               Submit
@@ -81,6 +93,30 @@ export default Vue.extend({
         check: mdiCheck,
       },
     }
+  },
+  computed: {
+    componentSize() {
+      const size = {
+        xs: 'x-small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'large',
+        xl: 'x-large',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
+    seekingStatusSize() {
+      const size = {
+        xs: 'x-small',
+        sm: 'x-small',
+        md: 'small',
+        lg: 'small',
+        xl: 'small',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
   },
   methods: {
     async submitForm() {

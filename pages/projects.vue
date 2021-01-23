@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col v-for="(project, i) in projects" :key="i" cols="6">
-        <v-card class="mx-auto" max-width="400">
+  <v-container>
+    <v-row justify="center">
+      <v-col v-for="(project, i) in projects" :key="i" md="6" lg="6" xl="3">
+        <v-card class="mx-auto" max-width="400" max-height="400">
           <v-img
             height="200px"
             contain
@@ -12,27 +12,33 @@
           <v-card-subtitle class="pb-0 white--text text-h6">
             {{ project.name }}
           </v-card-subtitle>
-          <v-card-subtitle class="grey--text lighten-1">
+          <v-card-subtitle
+            class="grey--text lighten-1"
+            :style="`overflow-y: auto; height: ${
+              project.demo || project.code ? 100 : 152
+            }px`"
+          >
             {{ project.description }}
           </v-card-subtitle>
-          <v-spacer />
-          <v-card-actions>
+          <v-card-actions v-if="project.demo || project.code" class="pb-auto">
             <v-btn
               v-if="project.demo"
               color="blue"
               text
+              v-bind="componentSize"
               @click="openNewTab(project.demo)"
             >
-              <v-icon left v-text="icons.testTube" />
+              <v-icon left v-bind="componentSize" v-text="icons.testTube" />
               Demo
             </v-btn>
             <v-btn
               v-if="project.code"
               color="orange"
               text
+              v-bind="componentSize"
               @click="openNewTab(project.code)"
             >
-              <v-icon left v-text="icons.github" />
+              <v-icon left v-bind="componentSize" v-text="icons.github" />
               Code
             </v-btn>
           </v-card-actions>
@@ -78,6 +84,19 @@ export default Vue.extend({
         github: mdiGithub,
       },
     }
+  },
+  computed: {
+    componentSize() {
+      const size = {
+        xs: 'x-small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'medium',
+        xl: 'large',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
   },
   methods: {
     openNewTab(link: string) {

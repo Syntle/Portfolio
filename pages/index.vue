@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <div class="text-h4 text-center">
+          <div class="text-center my-3" :class="typerSize">
             <vue-typer
               id="typewriter"
               :text="typerText"
@@ -16,19 +16,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="text-h4 text-center my-3">
-            <vue-typer
-              text="A passionate, quick learning, self-taught software engineer who strives to build robust and efficient applications."
-              repeat="0"
-              pre-type-delay="4000"
-              caret-animation="blink"
-            />
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-card class="mb-6 text-center">
+          <v-card class="mb-6 text-center px-1 pb-3">
             <v-card-text
               class="text-h6 text-decoration-underline text-center white--text"
             >
@@ -39,9 +27,10 @@
               :key="technology.name"
               :color="technology.colour"
               text
+              v-bind="componentSize"
               class="disable-pointer"
             >
-              <v-icon v-if="technology.icon" left>
+              <v-icon v-if="technology.icon" v-bind="componentSize" left>
                 {{ technology.icon }}
               </v-icon>
               <v-avatar v-if="!technology.icon && technology.svg_d" size="18">
@@ -55,7 +44,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="6">
+        <v-col md="6" lg="6" xl="6">
           <v-card hover @click="openInNewTab(stackOverflowStats.link)">
             <v-card-text
               class="text-h5 text-decoration-underline text-center white--text"
@@ -111,7 +100,7 @@
             </div>
           </v-card>
         </v-col>
-        <v-col cols="6">
+        <v-col md="6" lg="6" xl="6">
           <a href="https://github.com/Syntle">
             <v-img
               class="mb-2"
@@ -127,15 +116,21 @@
         <v-col>
           <v-card>
             <v-card-title> You can find me on... </v-card-title>
-            <v-row justify="center">
-              <v-col v-for="social in socials" :key="social.site" cols="2">
+            <v-row>
+              <v-col
+                v-for="social in socials"
+                :key="social.site"
+                class="text-center"
+              >
                 <v-btn
                   :color="social.colour"
                   large
-                  v-bind="size"
+                  v-bind="componentSize"
                   @click="openInNewTab(social.link)"
                 >
-                  <v-icon v-bind="size" left> {{ social.icon }} </v-icon>
+                  <v-icon v-bind="componentSize" left>
+                    {{ social.icon }}
+                  </v-icon>
                   {{ social.user }}
                 </v-btn>
               </v-col>
@@ -276,6 +271,30 @@ export default Vue.extend({
         circleMedium: mdiCircleMedium,
       },
     }
+  },
+  computed: {
+    componentSize() {
+      const size = {
+        xs: 'x-small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'large',
+        xl: 'x-large',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
+    typerSize() {
+      const size = {
+        xs: 'text-subtitle-1',
+        sm: 'text-subtitle-1',
+        md: 'text-h5',
+        lg: 'text-h4',
+        xl: 'text-h3',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? [size] : {}
+    },
   },
   methods: {
     openInNewTab(link: string) {

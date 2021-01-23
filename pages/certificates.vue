@@ -1,30 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col v-for="(cert, i) in certs" :key="i" cols="6">
-        <v-card class="mx-auto" hover max-width="400">
+  <v-container>
+    <v-row justify="center">
+      <v-col v-for="(cert, i) in certs" :key="i" md="6" lg="6" xl="3">
+        <v-card class="mx-auto" max-width="400" max-height="400">
           <v-img height="200px" :src="cert.image" />
           <v-card-subtitle class="pb-0">
             {{ cert.title }}
           </v-card-subtitle>
           <v-card-subtitle> {{ cert.course }} </v-card-subtitle>
-          <v-card-actions>
+          <v-card-actions v-if="cert.certificate || cert.link">
             <v-btn
               v-if="cert.certificate"
               color="blue"
               text
+              v-bind="componentSize"
               @click="openNewTab(cert.certificate)"
             >
-              <v-icon left v-text="icons.certificate" />
+              <v-icon left v-bind="componentSize" v-text="icons.certificate" />
               Certificate
             </v-btn>
             <v-btn
               v-if="cert.link"
               color="orange"
               text
+              v-bind="componentSize"
               @click="openNewTab(cert.link)"
             >
-              <v-icon left v-text="icons.notebook" />
+              <v-icon left v-bind="componentSize" v-text="icons.notebook" />
               Course
             </v-btn>
           </v-card-actions>
@@ -56,6 +58,19 @@ export default Vue.extend({
         certificate: mdiCertificate,
       },
     }
+  },
+  computed: {
+    componentSize() {
+      const size = {
+        xs: 'x-small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'medium',
+        xl: 'large',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
   },
   methods: {
     openNewTab(link: string) {

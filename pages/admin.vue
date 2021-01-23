@@ -2,7 +2,7 @@
   <div v-if="isOwner()">
     <v-container>
       <v-row justify="center">
-        <v-col cols="8">
+        <v-col md="8" lg="8" xl="8">
           <v-card>
             <v-card-text class="text-center text-h6 white--text mb-2">
               Your Messages
@@ -54,7 +54,10 @@
                         v-text="$moment(item.createdAt).format('DD/MM/YY')"
                       />
                       <v-list-item-icon>
-                        <v-icon :color="item.favourited ? '#ffcc00' : ''">
+                        <v-icon
+                          :color="item.favourited ? '#ffcc00' : ''"
+                          v-bind="messageIconSize"
+                        >
                           {{ item.favourited ? icons.star : icons.starOutline }}
                         </v-icon>
                       </v-list-item-icon>
@@ -74,7 +77,7 @@
             <v-card>
               <v-container>
                 <v-row>
-                  <v-col>
+                  <v-col cols="11">
                     <v-card-text
                       class="text-subtitle-1 font-weight-bold white--text mt-n3 mb-n5"
                     >
@@ -97,11 +100,16 @@
                       />
                     </v-card-text>
                   </v-col>
-                  <v-col>
+                  <v-col cols="1">
                     <div class="d-flex justify-end">
-                      <v-btn icon @click="toggleFavourite(openedMessage)">
+                      <v-btn
+                        icon
+                        v-bind="messageIconSize"
+                        @click="toggleFavourite(openedMessage)"
+                      >
                         <v-icon
                           :color="openedMessage.favourited ? '#ffcc00' : ''"
+                          v-bind="messageIconSize"
                         >
                           {{
                             openedMessage.favourited
@@ -110,8 +118,15 @@
                           }}
                         </v-icon>
                       </v-btn>
-                      <v-btn icon @click="showDeletePrompt = true">
-                        <v-icon v-text="icons.delete" />
+                      <v-btn
+                        icon
+                        v-bind="messageIconSize"
+                        @click="showDeletePrompt = true"
+                      >
+                        <v-icon
+                          v-bind="messageIconSize"
+                          v-text="icons.delete"
+                        />
                       </v-btn>
                     </div>
                   </v-col>
@@ -177,6 +192,30 @@ export default Vue.extend({
         delete: mdiDelete,
       },
     }
+  },
+  computed: {
+    componentSize() {
+      const size = {
+        xs: 'x-small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'large',
+        xl: 'x-large',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
+    messageIconSize() {
+      const size = {
+        xs: 'small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'medium',
+        xl: 'medium',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? { [size]: true } : {}
+    },
   },
   created() {
     if (process.client && !this.$auth.loggedIn) this.$auth.loginWith('discord')

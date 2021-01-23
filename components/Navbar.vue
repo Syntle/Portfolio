@@ -1,21 +1,23 @@
 <template>
   <nav>
     <v-app-bar app fixed dense>
-      <v-btn depressed link nuxt to="/">
-        <v-icon left v-text="icons.home" />
+      <v-btn v-bind="size" text link nuxt to="/">
+        <v-icon v-bind="size" left v-text="icons.home" />
         Home
       </v-btn>
-      <v-btn depressed link nuxt to="/projects">
-        <v-icon left v-text="icons.folderOpen" />
+      <v-btn v-bind="size" text link nuxt to="/projects">
+        <v-icon v-bind="size" left v-text="icons.folderOpen" />
         Projects
       </v-btn>
-      <v-btn depressed link nuxt to="/certificates">
-        <v-icon left v-text="icons.certificate" />
+      <v-btn v-bind="size" text link nuxt to="/certificates">
+        <v-icon v-bind="size" left v-text="icons.certificate" />
         Certificates
       </v-btn>
+      <v-spacer v-if="$vuetify.breakpoint.name === 'xs'" />
+      <v-divider v-if="$vuetify.breakpoint.name === 'xs'" vertical inset />
       <v-spacer />
-      <v-btn depressed link nuxt to="/contact">
-        <v-icon left v-text="icons.accountBox" />
+      <v-btn v-bind="size" text link nuxt to="/contact">
+        <v-icon v-bind="size" left v-text="icons.accountBox" />
         Contact
       </v-btn>
     </v-app-bar>
@@ -36,6 +38,18 @@ export default Vue.extend({
         accountBox: mdiAccountBox,
       },
     }
+  },
+  computed: {
+    size() {
+      const size = {
+        xs: 'x-small',
+        sm: 'small',
+        md: 'medium',
+        lg: 'large',
+        xl: 'x-large',
+      }[this.$vuetify.breakpoint.name]
+      return size ? { [size]: true } : {}
+    },
   },
 })
 </script>
