@@ -6,7 +6,7 @@
           <v-img
             height="200px"
             contain
-            :src="project.logo || '/CodeTags.png'"
+            :src="project.logo || '/images/CodeTags.png'"
           />
 
           <v-card-subtitle class="pb-0 white--text text-h6">
@@ -67,7 +67,7 @@ export default Vue.extend({
         {
           name: 'RustTracker',
           description: 'A utility Discord bot & website for the game Rust',
-          logo: '/RustTrackerLogo.png',
+          logo: '/images/RustTrackerLogo.png',
           demo: '',
           code: '',
         },
