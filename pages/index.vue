@@ -178,7 +178,7 @@ export default Vue.extend({
     return {
       typerText: [
         'Hello!',
-        "I'm Syntle\n\nA passionate, quick learning, self-taught software engineer who strives to build robust and efficient applications.",
+        "I'm Syntle\n\nA passionate, versatile, self-taught software engineer who strives to build robust and efficient applications.",
       ],
       countWord: 0,
       technologies: [

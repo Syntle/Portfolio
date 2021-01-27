@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 const title = "Syntle's Portfolio"
 const description =
-  'A passionate, quick learning, self-taught software engineer who strives to build robust and efficient applications.'
+  'A passionate, versatile, self-taught software engineer who strives to build robust and efficient applications.'
 const image = 'http://syntle.dev/images/Syntle.png'
 
 export default {
