@@ -33,9 +33,11 @@
               <v-icon v-if="technology.icon" v-bind="componentSize" left>
                 {{ technology.icon }}
               </v-icon>
-              <v-avatar v-if="!technology.icon && technology.svg_d" size="18">
-                <svg viewBox="0 0 24 24">
-                  <path :class="technology.name" :d="technology.svg_d" />
+              <v-avatar v-if="!technology.icon && technology.svg_d">
+                <svg
+                  viewBox="0 0 24 24"
+                  :style="`font-size: ${svgSize}; height: ${svgSize}; width: ${svgSize};`"
+                >
                 </svg>
               </v-avatar>
               {{ technology.name }}
@@ -291,6 +293,17 @@ export default Vue.extend({
         md: 'text-h5',
         lg: 'text-h4',
         xl: 'text-h3',
+      }[this.$vuetify.breakpoint.name]
+
+      return size ? [size] : {}
+    },
+    svgSize() {
+      const size = {
+        xs: '12px',
+        sm: '16px',
+        md: '18px',
+        lg: '36px',
+        xl: '40px',
       }[this.$vuetify.breakpoint.name]
 
       return size ? [size] : {}
