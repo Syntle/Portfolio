@@ -59,14 +59,15 @@ export default Vue.extend({
         {
           name: 'Concordis',
           description:
-            'A website which which utilises user interests to match users to make meaningful connections with like-minded people',
+            'A web application which utilises interest categories to match users with like-minded people with the intention of creating meaningful connections.',
           logo: '',
           demo: 'https://concordis.xyz',
           code: 'https://github.com/Syntle/Concordis',
         },
         {
           name: 'RustTracker',
-          description: 'A utility Discord bot & website for the game Rust',
+          description:
+            'A Discord bot that utilises Steam Web API to track several different player metrics related to the game Rust',
           logo: '/images/RustTrackerLogo.png',
           demo: '',
           code: '',
