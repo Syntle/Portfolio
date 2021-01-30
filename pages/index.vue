@@ -38,6 +38,10 @@
                   viewBox="0 0 24 24"
                   :style="`font-size: ${svgSize}; height: ${svgSize}; width: ${svgSize};`"
                 >
+                  <path
+                    :style="`fill: ${technology.colour}`"
+                    :d="technology.svg_d"
+                  />
                 </svg>
               </v-avatar>
               {{ technology.name }}
@@ -376,10 +380,6 @@ export default Vue.extend({
 
 .disable-pointer {
   pointer-events: none;
-}
-
-.MongoDB {
-  fill: #13aa52;
 }
 
 span.nowrap {
