@@ -50,7 +50,12 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col md="6" lg="6" xl="6">
+        <v-col
+          md="6"
+          lg="6"
+          xl="6"
+          v-if="stackOverflowStats && stackOverflowTopTags"
+        >
           <v-card hover @click="openInNewTab(stackOverflowStats.link)">
             <v-card-text
               class="text-h5 text-decoration-underline text-center white--text"
@@ -167,19 +172,6 @@ import {
 } from '@mdi/js'
 
 export default Vue.extend({
-  async asyncData({ $axios, env }) {
-    const {
-      items: { 0: stackOverflowStats },
-    } = await $axios.$get(
-      `${env.SE_API_BASE}/users/13176517?site=stackoverflow`
-    )
-
-    const { items: stackOverflowTopTags } = await $axios.$get(
-      `${env.SE_API_BASE}/users/13176517/top-tags?pagesize=3&site=stackoverflow`
-    )
-
-    return { stackOverflowStats, stackOverflowTopTags }
-  },
   data() {
     return {
       typerText: [
@@ -187,6 +179,8 @@ export default Vue.extend({
         "I'm Syntle\n\nA passionate, versatile, self-taught software engineer who strives to build robust and efficient applications.",
       ],
       countWord: 0,
+      stackOverflowStats: undefined,
+      stackOverflowTopTags: undefined,
       technologies: [
         {
           name: 'JavaScript',
@@ -285,6 +279,20 @@ export default Vue.extend({
       },
     }
   },
+  async fetch() {
+    let stackOverflowStats = await fetch(
+      'https://api.stackexchange.com/2.2/users/13176517?site=stackoverflow'
+    ).then((res) => res.json())
+
+    this.stackOverflowStats = stackOverflowStats.items[0]
+
+    const stackOverflowTopTags = await fetch(
+      'https://api.stackexchange.com/2.2/users/13176517/top-tags?pagesize=3&site=stackoverflow'
+    ).then((res) => res.json())
+
+    this.stackOverflowTopTags = stackOverflowTopTags.items
+  },
+  fetchOnServer: false,
   computed: {
     componentSize() {
       const size = {

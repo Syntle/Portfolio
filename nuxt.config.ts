@@ -145,7 +145,6 @@ export default {
     CLIENT_ID: process.env.CLIENT_ID,
     DISCORD_API_BASE: process.env.DISCORD_API_BASE,
     WEBSITE_URL: process.env.WEBSITE_URL,
-    SE_API_BASE: process.env.SE_API_BASE,
     OWNER_ID: process.env.OWNER_ID,
   },
   server: {
