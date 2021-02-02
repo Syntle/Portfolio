@@ -112,26 +112,19 @@
           </v-card>
         </v-col>
         <v-col md="6" lg="6" xl="6">
-          <a href="https://github.com/Syntle">
+          <a @click="openInNewTab('https://github.com/Syntle')">
             <v-img
               class="mb-2"
               src="https://github-readme-stats.syntle.vercel.app/api?username=syntle&show_icons=true&theme=dark&include_all_commits=true&count_private=true&hide_border=true"
             />
-            <v-img
-              src="https://github-readme-stats.syntle.vercel.app/api/top-langs/?username=syntle&layout=compact&theme=dark&hide_border=true"
-            />
           </a>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
           <v-card>
             <v-card-title> You can find me on... </v-card-title>
             <v-row>
               <v-col
                 v-for="social in socials"
                 :key="social.site"
-                class="text-center"
+                class="text-center mr-2 mb-2"
               >
                 <v-btn
                   :color="social.colour"
